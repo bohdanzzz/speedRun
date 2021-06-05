@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Speed Run</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="app">
+    +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
+    {{ games.timeString }}
+</div>
+<script src="./libs/pgn.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="./app.js"></script>
+</body>
+</html>
