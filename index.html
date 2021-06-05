@@ -9,13 +9,30 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div id="app">
-    +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
-    {{ games.timeString }}
+
+<div id="app" v-cloak>
+    <div class="config" v-if="!showResult">
+        <br>
+        <span :class="!nick? 'red': ''">nick</span>: <input type="text" v-model="nick"> <br><br>
+        <v-date-picker v-model="startDateTime" mode="dateTime" timezone="utc"></v-date-picker>
+        <br><br>
+
+        url: <a v-if="nick" :href="href">{{href}}</a>
+        <span class="red" v-else>nick is required</span>
+    </div>
+    <div v-else class="result">
+        <div v-if="loading">loading...</div>
+        <div v-else>
+            +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
+            {{ games.timeString }}
+        </div>
+    </div>
 </div>
+
 <script src="./libs/pgn.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+<script src='https://unpkg.com/v-calendar'></script>
 <script src="./app.js"></script>
 </body>
 </html>

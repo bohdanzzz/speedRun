@@ -1,7 +1,15 @@
-* {
+.result {
     font-size: 42px
 }
 
-div.small {
-    font-size: 22px;
+[v-cloak] {
+    display: none;
+}
+
+.red {
+    color: red;
+}
+
+#app .config {
+    margin: 10px;
 }
