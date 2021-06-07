@@ -111,14 +111,14 @@ new Vue({
                         if (g.white.result === g.black.result) {
                             acc.draw += 1;
                         }
-                        if (g.white.username === this.nick) {
+                        if (g.white.username.toLowerCase() === this.nick.toLowerCase()) {
                             acc.win += (g.white.result === 'win') ? 1 : 0;
                         }
-                        if (g.black.username === this.nick) {
+                        if (g.black.username.toLowerCase() === this.nick.toLowerCase()) {
                             acc.win += (g.black.result === 'win') ? 1 : 0;
                         }
-                        acc.whiteCount += (g.white.username === this.nick) ? 1 : 0;
-                        acc.blackCount += (g.black.username === this.nick) ? 1 : 0;
+                        acc.whiteCount += (g.white.username.toLowerCase() === this.nick.toLowerCase()) ? 1 : 0;
+                        acc.blackCount += (g.black.username.toLowerCase() === this.nick.toLowerCase()) ? 1 : 0;
                         const pgn = pgnParser.parse(g.pgn);
                         const times = pgn[0].headers.reduce((acc2, h) => {
                             if (h.name === 'UTCDate') {
