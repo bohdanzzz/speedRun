@@ -20,7 +20,7 @@
         url: <a v-if="nick" :href="href">{{href}}</a>
         <span class="red" v-else>nick is required</span>
     </div>
-    <div v-else class="result">
+    <div v-else class="result center-screen">
         <div v-if="loading">loading...</div>
         <div v-else>
             +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
