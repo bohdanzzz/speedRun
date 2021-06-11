@@ -27,3 +27,7 @@
 #chart svg {
     /*height: 400px;*/
 }
+
+.result .text {
+    font-size: 13vw !important;
+}
