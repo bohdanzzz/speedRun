@@ -1,5 +1,8 @@
+.result .text {
+    font-size: 13vw !important;
+}
+
 .result {
-    font-size: 42px;
     font-family: "Pacifico", serif;
 }
 
@@ -24,10 +27,14 @@
     min-height: 100vh;
 }
 
-#chart svg {
-    /*height: 400px;*/
+.graph{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+#chart {
 }
 
-.result .text {
-    font-size: 13vw !important;
+#chart svg {
+/*    height: 200px;*/
 }
