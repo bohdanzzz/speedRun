@@ -149,9 +149,10 @@ new Vue({
                         });
                         const tStart = new Date(times.tUTCDate + ' ' + times.tUTCTime);
                         const tEnd = new Date(times.tEndDate + ' ' + times.tEndTime);
-                        acc.duration += Math.round(tEnd.getTime() / 1000) - Math.round(tStart.getTime() / 1000);
 
                         acc.graphData.push({x: acc.duration, y: rating});
+
+                        acc.duration += Math.round(tEnd.getTime() / 1000) - Math.round(tStart.getTime() / 1000);
 
                         return acc;
                     }, {
@@ -165,15 +166,6 @@ new Vue({
                     this.games.timeString = getTimeString(this.games.duration);
                     this.lastGame = response.data.games[response.data.games.length - 1];
                     this.pgn = pgnParser.parse(this.lastGame.pgn);
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-
 
                     const data = () => {
                         return [
@@ -212,7 +204,7 @@ new Vue({
                     this.loading = false;
                     setTimeout(() => {
                         this.getGames();
-                    }, 1000);
+                    }, 1000*1000);
                 });
         },
     },
