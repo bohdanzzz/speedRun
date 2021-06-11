@@ -34,10 +34,10 @@
             +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
             {{ games.timeString }}
         </div>
-        <div>
-            <div id="chart">
-                <svg></svg>
-            </div>
+    </div>
+    <div v-if="showResult">
+        <div id="chart">
+            <svg></svg>
         </div>
     </div>
 </div>

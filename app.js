@@ -44,7 +44,9 @@ new Vue({
 
 
         if (this.showResult) {
-            this.doShowResult();
+            this.$nextTick(() => {
+                this.doShowResult();
+            });
         }
     },
 
