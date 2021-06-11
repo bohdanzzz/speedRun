@@ -7,9 +7,13 @@
     <title>Speed Run</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="./libs/nv.d3.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -30,9 +34,16 @@
             +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
             {{ games.timeString }}
         </div>
+        <div>
+            <div id="chart">
+                <svg></svg>
+            </div>
+        </div>
     </div>
 </div>
 
+<script src="./libs/d3.min.js"></script>
+<script src="./libs/nv.d3.min.js"></script>
 <script src="./libs/pgn.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>

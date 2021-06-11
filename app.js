@@ -10,8 +10,6 @@ new Vue({
     data: {
         nick: '',
         games: {
-            whiteCount: 0,
-            blackCount: 0,
             win: 0,
             count: 0,
             draw: 0,
@@ -95,6 +93,7 @@ new Vue({
     methods: {
         doShowResult() {
             this.getGames();
+
         },
 
         getGames() {
@@ -107,18 +106,23 @@ new Vue({
                     }).filter((g) => {
                         return g.time_class === 'blitz';
                     }).reduce((acc, g) => {
+                        let rating;
+
+                        if (g.white.username.toLowerCase() === this.nick.toLowerCase()) {
+                            rating = g.white.rating;
+                            acc.win += (g.white.result === 'win') ? 1 : 0;
+                        } else if (g.black.username.toLowerCase() === this.nick.toLowerCase()) {
+                            rating = g.black.rating
+                            acc.win += (g.black.result === 'win') ? 1 : 0;
+                        } else {
+                            return acc;
+                        }
+
                         acc.count += 1;
                         if (g.white.result === g.black.result) {
                             acc.draw += 1;
                         }
-                        if (g.white.username.toLowerCase() === this.nick.toLowerCase()) {
-                            acc.win += (g.white.result === 'win') ? 1 : 0;
-                        }
-                        if (g.black.username.toLowerCase() === this.nick.toLowerCase()) {
-                            acc.win += (g.black.result === 'win') ? 1 : 0;
-                        }
-                        acc.whiteCount += (g.white.username.toLowerCase() === this.nick.toLowerCase()) ? 1 : 0;
-                        acc.blackCount += (g.black.username.toLowerCase() === this.nick.toLowerCase()) ? 1 : 0;
+
                         const pgn = pgnParser.parse(g.pgn);
                         const times = pgn[0].headers.reduce((acc2, h) => {
                             if (h.name === 'UTCDate') {
@@ -145,19 +149,62 @@ new Vue({
                         const tEnd = new Date(times.tEndDate + ' ' + times.tEndTime);
                         acc.duration += Math.round(tEnd.getTime() / 1000) - Math.round(tStart.getTime() / 1000);
 
+                        acc.graphData.push({x: acc.duration, y: rating});
+
                         return acc;
                     }, {
-                        whiteCount: 0,
-                        blackCount: 0,
                         win: 0,
                         count: 0,
                         draw: 0,
                         duration: 0,
+                        graphData: [],
                     });
 
                     this.games.timeString = getTimeString(this.games.duration);
                     this.lastGame = response.data.games[response.data.games.length - 1];
                     this.pgn = pgnParser.parse(this.lastGame.pgn);
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+
+                    const data = () => {
+                        return [
+                            {
+                                values: this.games.graphData,
+                                key: 'rating',
+                                color: '#ff7f0e'
+                            },
+                        ];
+                    };
+
+                    nv.addGraph(function () {
+                        var chart = nv.models.lineChart()
+                            .useInteractiveGuideline(true)
+                            .showLegend(false);
+
+                        chart.xAxis
+                            .axisLabel('Time')
+                            .tickFormat(d => getTimeString(d));
+
+                        chart.yAxis
+                            .axisLabel('rating');
+
+                        d3.select('#chart svg')
+                            .datum(data())
+                            .transition().duration(500)
+                            .call(chart);
+
+                        nv.utils.windowResize(chart.update);
+
+                        return chart;
+                    });
+
                 })
                 .finally(() => {
                     this.loading = false;
