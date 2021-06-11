@@ -150,9 +150,9 @@ new Vue({
                         const tStart = new Date(times.tUTCDate + ' ' + times.tUTCTime);
                         const tEnd = new Date(times.tEndDate + ' ' + times.tEndTime);
 
-                        acc.graphData.push({x: acc.duration, y: rating});
-
                         acc.duration += Math.round(tEnd.getTime() / 1000) - Math.round(tStart.getTime() / 1000);
+
+                        acc.graphData.push({x: acc.duration, y: rating});
 
                         return acc;
                     }, {
