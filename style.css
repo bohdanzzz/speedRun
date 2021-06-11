@@ -41,3 +41,7 @@
 .tick line {
     opacity: 0;
 }
+
+.nvd3 g.nv-groups path.nv-line {
+    stroke-width: 10px;
+}

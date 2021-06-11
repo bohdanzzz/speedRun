@@ -180,7 +180,7 @@ new Vue({
                             {
                                 values: this.games.graphData,
                                 key: 'rating',
-                                color: '#ff7f0e'
+                                color: '#ff0000'
                             },
                         ];
                     };
