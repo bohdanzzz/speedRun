@@ -31,10 +31,9 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-#chart {
+    height: 100%;
 }
 
 #chart svg {
-/*    height: 200px;*/
+    height: 1080px;
 }

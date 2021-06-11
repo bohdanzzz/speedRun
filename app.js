@@ -187,7 +187,6 @@ new Vue({
 
                     nv.addGraph(function () {
                         var chart = nv.models.lineChart()
-                            .useInteractiveGuideline(true)
                             .showLegend(false);
 
                         chart.xAxis
