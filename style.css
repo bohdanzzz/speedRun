@@ -37,3 +37,7 @@
 #chart svg {
     height: 1080px;
 }
+
+.tick line {
+    opacity: 0;
+}
