@@ -185,27 +185,28 @@ new Vue({
                         ];
                     };
 
-                    nv.addGraph(function () {
-                        var chart = nv.models.lineChart()
-                            .showLegend(false);
+                    if (this.games.graphData.length > 0) {
+                        nv.addGraph(function () {
+                            var chart = nv.models.lineChart()
+                                .showLegend(false);
 
-                        chart.xAxis
-                            .axisLabel('Time')
-                            .tickFormat(d => getTimeString(d));
+                            chart.xAxis
+                                .axisLabel('Time')
+                                .tickFormat(d => getTimeString(d));
 
-                        chart.yAxis
-                            .axisLabel('rating');
+                            chart.yAxis
+                                .axisLabel('rating');
 
-                        d3.select('#chart svg')
-                            .datum(data())
-                            .transition().duration(500)
-                            .call(chart);
+                            d3.select('#chart svg')
+                                .datum(data())
+                                .transition().duration(500)
+                                .call(chart);
 
-                        nv.utils.windowResize(chart.update);
+                            nv.utils.windowResize(chart.update);
 
-                        return chart;
-                    });
-
+                            return chart;
+                        });
+                    }
                 })
                 .finally(() => {
                     this.loading = false;
