@@ -5,6 +5,9 @@ function getTimeString(seconds) {
     return date.toISOString().substr(11, 8);
 }
 
+var chart = null;
+let chartData = null;
+
 new Vue({
     el: '#app',
     data: {
@@ -178,26 +181,29 @@ new Vue({
                     };
 
                     if (this.games.graphData.length > 0) {
-                        nv.addGraph(function () {
-                            var chart = nv.models.lineChart()
-                                .showLegend(false);
+                        if (!chartData) {
+                            nv.addGraph(function () {
+                                chart = nv.models.lineChart()
+                                    .showLegend(false);
 
-                            chart.xAxis
-                                .axisLabel('Time')
-                                .tickFormat(d => getTimeString(d));
+                                chart.xAxis
+                                    .axisLabel('Time')
+                                    .tickFormat(d => getTimeString(d));
 
-                            chart.yAxis
-                                .axisLabel('rating');
+                                chart.yAxis
+                                    .axisLabel('rating');
 
-                            d3.select('#chart svg')
-                                .datum(data())
-                                .transition().duration(500)
-                                .call(chart);
+                                chartData = d3.select('#chart svg').datum(data());
+                                chartData.transition().duration(500).call(chart);
 
+                                nv.utils.windowResize(chart.update);
+
+                                return chart;
+                            });
+                        } else {
+                            chartData.datum(data()).transition().duration(500).call(chart);
                             nv.utils.windowResize(chart.update);
-
-                            return chart;
-                        });
+                        }
                     }
                 })
                 .finally(() => {
