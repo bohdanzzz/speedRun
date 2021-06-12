@@ -28,17 +28,21 @@
         url: <a v-if="nick" :href="href">{{href}}</a>
         <span class="red" v-else>nick is required</span>
     </div>
-    <div v-else class="result center-screen">
+    <div v-else class="result">
         <div v-if="loading">loading...</div>
-        <div v-else class="text">
-            +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
-            {{ games.timeString }}
-        </div>
-    </div>
-    <div v-if="showResult" class="graph">
-        <div id="chart">
-            <svg></svg>
-        </div>
+        <table v-else style="width: 100%; height: 100%">
+            <td style="width: 50%; height: 100%">
+                <div class="text center-screen">
+                    +{{ games.win }} -{{ games.count - games.win - games.draw }} ={{ games.draw }} <br>
+                    {{ games.timeString }}
+                </div>
+            </td>
+            <td style="width: 50%; height: 100%">
+                <div id="chart" style="height: 100%">
+                    <svg></svg>
+                </div>
+            </td>
+        </table>
     </div>
 </div>
 

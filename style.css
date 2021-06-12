@@ -1,5 +1,5 @@
 .result .text {
-    font-size: 18vw !important;
+    font-size: 10vw;
 }
 
 .result {
@@ -27,6 +27,7 @@
     min-height: 100vh;
 }
 
+/*
 .graph{
     position: fixed;
     bottom: 0;
@@ -44,4 +45,4 @@
 
 .nvd3 g.nv-groups path.nv-line {
     stroke-width: 10px;
-}
+}*/
