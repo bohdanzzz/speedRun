@@ -210,7 +210,7 @@ new Vue({
                     this.loading = false;
                     setTimeout(() => {
                         this.getGames();
-                    }, 1000*1000);
+                    }, 1000);
                 });
         },
     },
