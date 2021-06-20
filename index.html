@@ -22,6 +22,7 @@
     <div class="config" v-if="!showResult">
         <br>
         <span :class="!nick? 'red': ''">nick</span>: <input type="text" v-model="nick"> <br><br>
+        <input type="radio" v-model="timeClass" value="rapid"> rapid <br>
         <input type="radio" v-model="timeClass" value="blitz"> blitz <br>
         <input type="radio" v-model="timeClass" value="bullet"> bullet
         <br><br>
