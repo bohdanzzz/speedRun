@@ -210,8 +210,8 @@ new Vue({
 
         getGames() {
             const now = new Date();
-            const currentYear = now.getFullYear();
-            let currentMonth = now.getMonth() + 1;
+            const currentYear = now.getUTCFullYear();
+            let currentMonth = now.getUTCMonth() + 1;
             currentMonth = currentMonth < 10 ? '0' + currentMonth : currentMonth;
             axios
                 .get(`https://api.chess.com/pub/player/${this.nick}/games/${currentYear}/${currentMonth}`)
