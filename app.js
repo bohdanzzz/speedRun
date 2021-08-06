@@ -1,6 +1,23 @@
 const DURATION_FOR_BAD_PGN = -1;
 const DEFAULT_TIME_CLASS = 'blitz';
 
+const getFontSize = length => {
+    if (length >= 11) {
+        return 9;
+    }
+    if (length >= 13) {
+        return 8;
+    }
+    if (length >= 14) {
+        return 7;
+    }
+    if (length >= 16) {
+        return 6;
+    }
+
+    this.resultTextFontSize = 10;
+}
+
 function getTimeString(secondsTotal) {
     var hours = Math.floor(secondsTotal / 3600);
     var minutes = Math.floor((secondsTotal - (hours * 3600)) / 60);
@@ -159,6 +176,10 @@ new Vue({
         graphDataLengthOld: 0,
 
         timeClass: 'blitz',
+
+        resultText: '',
+
+        resultTextFontSize: 10,
     },
 
     async mounted() {
@@ -217,6 +238,11 @@ new Vue({
                 .get(`https://api.chess.com/pub/player/${this.nick}/games/${currentYear}/${currentMonth}`)
                 .then(response => {
                     this.games = analyzeResponse(response.data.games, JSON.parse(JSON.stringify(this.prevGames)), this.startTS, this.nick, this.timeClass);
+
+                    const loss = this.games.count - this.games.win - this.games.draw;
+                    this.resultText = '+' + this.games.win + ' -' + loss + ' =' + this.games.draw;
+
+                    this.resultTextFontSize = getFontSize(this.resultText.length);
 
                     this.games.timeString = getTimeString(this.games.duration);
 
