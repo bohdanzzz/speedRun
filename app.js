@@ -15,7 +15,7 @@ const getFontSize = length => {
         return 5;
     }
 
-    this.resultTextFontSize = 9;
+    return 9;
 }
 
 function getTimeString(secondsTotal) {
