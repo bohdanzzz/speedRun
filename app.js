@@ -339,7 +339,7 @@ new Vue({
           this.loading = false;
           setTimeout(() => {
             this.getGames();
-          }, 1000 * 10000000);
+          }, 1000);
         });
     },
   },
