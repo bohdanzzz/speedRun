@@ -54,7 +54,7 @@ const analyzeResponse = (
       let rating;
 
       if (g.rules !== "chess"){
-        return acc;  
+        return acc;
       }
 
       if (g.white.username.toLowerCase() === nick.toLowerCase()) {
@@ -121,8 +121,11 @@ const getDurationFromPGN = (pgnData) => {
       }
     );
 
-    const tStart = new Date(times.tUTCDate + " " + times.tUTCTime);
-    const tEnd = new Date(times.tEndDate + " " + times.tEndTime);
+    const startDateString = times.tUTCDate + " " + times.tUTCTime;
+    const tStart = new Date(startDateString.replaceAll(".", "-"));
+
+    const endDateString = times.tEndDate + " " + times.tEndTime;
+    const tEnd = new Date(endDateString.replaceAll(".", "-"));
     return (
       Math.round(tEnd.getTime() / 1000) - Math.round(tStart.getTime() / 1000)
     );
