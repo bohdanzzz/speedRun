@@ -21,7 +21,7 @@ const getFontSize = (length) => {
 function getTimeString(secondsTotal) {
   var hours = Math.floor(secondsTotal / 3600);
   var minutes = Math.floor((secondsTotal - hours * 3600) / 60);
-  var seconds = secondsTotal - hours * 3600 - minutes * 60;
+  var seconds = Math.floor(secondsTotal - hours * 3600 - minutes * 60);
 
   if (hours < 10) {
     hours = "0" + hours;
@@ -43,12 +43,21 @@ const analyzeResponse = (
   nick,
   timeClass
 ) => {
+  let effectiveTimeClass = timeClass;
+
+  if (timeClass === 'auto' && gamesFromResponse.length > 0) {
+    // Sort games by end_time in descending order
+    const sortedGames = [...gamesFromResponse].sort((a, b) => b.end_time - a.end_time);
+    // Get the time_class of the most recent game
+    effectiveTimeClass = sortedGames[0].time_class;
+  }
+
   return gamesFromResponse
     .filter((g) => {
       return g.end_time > startTS;
     })
     .filter((g) => {
-      return g.time_class === timeClass;
+      return effectiveTimeClass === 'auto' || g.time_class === effectiveTimeClass;
     })
     .reduce((acc, g) => {
       let rating;
@@ -88,7 +97,10 @@ const analyzeResponse = (
 
       acc.graphData.push({ x: acc.duration, y: rating });
 
-      return acc;
+      return {
+        ...acc,
+        effectiveTimeClass: effectiveTimeClass
+      };
     }, prevGames);
 };
 
@@ -211,7 +223,9 @@ new Vue({
 
     graphDataLengthOld: 0,
 
-    timeClass: "blitz",
+    timeClass: "auto",
+    
+    effectiveTimeClass: "",
 
     resultText: "",
 
@@ -283,13 +297,15 @@ new Vue({
           `https://api.chess.com/pub/player/${this.nick}/games/${currentYear}/${currentMonth}`
         )
         .then((response) => {
-          this.games = analyzeResponse(
+          const result = analyzeResponse(
             response.data.games,
             JSON.parse(JSON.stringify(this.prevGames)),
             this.startTS,
             this.nick,
             this.timeClass
           );
+          this.games = result;
+          this.effectiveTimeClass = result.effectiveTimeClass;
 
           const loss = this.games.count - this.games.win - this.games.draw;
           this.resultText =

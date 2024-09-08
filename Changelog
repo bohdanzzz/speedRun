@@ -1,0 +1,2 @@
+ + if timeClass == 'auto' - determine which game was played last - and set the filtering type by its type
+ 

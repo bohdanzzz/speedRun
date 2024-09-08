@@ -22,6 +22,7 @@
     <div class="config" v-if="!showResult">
         <br>
         <span :class="!nick? 'red': ''">nick</span>: <input type="text" v-model="nick"> <br><br>
+        <input type="radio" v-model="timeClass" value="auto"> auto <br>
         <input type="radio" v-model="timeClass" value="rapid"> rapid <br>
         <input type="radio" v-model="timeClass" value="blitz"> blitz <br>
         <input type="radio" v-model="timeClass" value="bullet"> bullet
@@ -39,6 +40,7 @@
                 <div class="text center-screen">
                     <span :style="{ fontSize: resultTextFontSize + 'vw' }">{{ resultText }}</span>
                     {{ games.timeString }}
+                    {{ effectiveTimeClass }}
                 </div>
             </td>
             <td style="width: 50%; height: 100%">
